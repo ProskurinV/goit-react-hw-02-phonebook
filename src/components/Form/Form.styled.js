@@ -5,9 +5,9 @@ export const FormBook = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px;
+  padding: 10px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const Label = styled.label`
@@ -27,6 +27,8 @@ export const Input = styled(Field)`
 `;
 
 export const Btn = styled.button`
+  /* display: flex; */
+
   margin-top: 10px;
   cursor: pointer;
   padding: 5px;

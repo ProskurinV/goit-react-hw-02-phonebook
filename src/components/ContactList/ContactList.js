@@ -5,7 +5,7 @@ import {
   ContactTitle,
   ContactWrapper,
 } from './ContactList.styled';
-import ContactItem from 'components/ContactItem/ContactItem';
+import Item from 'components/ContactItem/ContactItem';
 
 export default function ContactList({ title, contacts }) {
   return (
@@ -13,7 +13,7 @@ export default function ContactList({ title, contacts }) {
       <ContactTitle>{title}</ContactTitle>
       <ContactWrapper>
         {contacts.map(({ id, name, number }) => (
-          <ContactItem
+          <Item
             key={id}
             id={id}
             name={name}

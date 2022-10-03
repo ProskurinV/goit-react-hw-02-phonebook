@@ -4,7 +4,7 @@ export const FindWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const FindTitle = styled.h3`
@@ -14,7 +14,6 @@ export const FindTitle = styled.h3`
   font-size: x-large;
   font-weight: 700;
   text-align: center;
-  /* margin-bottom: 20px; */
 `;
 
 export const Input = styled.input`

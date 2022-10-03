@@ -18,26 +18,35 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    // name: '',
-    // number: '',
   };
 
   handlerFormSubmit = ({ name, number }) => {
     const nameToRegistr = name.toLowerCase();
-    this.addNewContact(nameToRegistr, number);
-    this.addContact(name, number);
+    this.addContact(nameToRegistr, number);
   };
 
-  addContact = ({ name, number }) => {
+  addContact = (name, number) => {
     const contact = {
       id: nanoid(),
       name,
       number,
     };
-
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
     }));
+  };
+
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
+  filteredContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase)
+    );
   };
 
   // findContact = name => {
@@ -60,7 +69,11 @@ export default class App extends Component {
           filter={filter}
           onChange={this.onFilterChange}
         />
-        <ContactList title="Contacts" contacts={contacts} />
+        <ContactList
+          title="Contacts"
+          contacts={contacts}
+          onDeleteContact={this.deleteContact}
+        />
       </MainBox>
     );
   }

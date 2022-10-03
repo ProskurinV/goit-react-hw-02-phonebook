@@ -21,7 +21,7 @@ export const ContactWrapper = styled.ol`
   margin-bottom: 10px;
 `;
 
-export const Item = styled.div`
-  font-size: 20px;
-  font-weight: 400;
-`;
+// export const Item = styled.li`
+//   font-size: 20px;
+//   font-weight: 400;
+// `;

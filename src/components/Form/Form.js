@@ -1,10 +1,25 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { PropTypes } from 'prop-types';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormBook, Input, Label, Btn, Error } from './Form.styled';
 
 let schema = yup.object().shape({
-  name: yup.string().required('Please, enter name'),
-  number: yup.string().min(10).max(16).required('Please, enter correct number'),
+  name: yup
+    .string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+    )
+    .required('Please, enter name'),
+  number: yup
+    .string()
+    .min(6)
+    .max(16)
+    .matches(
+      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+    )
+    .required('Please, enter correct number'),
 });
 
 const initialValues = {
@@ -12,9 +27,9 @@ const initialValues = {
   number: '',
 };
 
-export default function FormEl() {
+export default function FormEl({ onSubmit }) {
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
+    onSubmit(values);
     resetForm();
   };
   return (
@@ -31,9 +46,7 @@ export default function FormEl() {
               type="text"
               placeholder="Enter name"
               name="name"
-              // value={name}
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              // onChange={this.handleChange}
             />
             <Error name="name" component="div" />
           </Label>
@@ -43,10 +56,7 @@ export default function FormEl() {
               type="tel"
               placeholder="Enter phone"
               name="number"
-              // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              // value={number}
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              // onChange={this.handleChange}
             />
             <Error name="number" component="div" />
           </Label>
@@ -57,3 +67,7 @@ export default function FormEl() {
     </>
   );
 }
+
+FormEl.propTyper = {
+  onSubmit: PropTypes.func.isRequired,
+};

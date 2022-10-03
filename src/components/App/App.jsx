@@ -17,39 +17,50 @@ export default class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    // filter: '',
-    name: '',
-    number: '',
+    filter: '',
+    // name: '',
+    // number: '',
   };
 
-  addNewContact = ({ name, number }) => {
-    // const { contacts } = this.state;
-
-    this.setState(({ contacts }) => {
-      return {
-        contacts: [...contacts, { id: nanoid(), name, number }],
-      };
-    });
+  handlerFormSubmit = ({ name, number }) => {
+    const nameToRegistr = name.toLowerCase();
+    this.addNewContact(nameToRegistr, number);
+    this.addContact(name, number);
   };
 
-  // handlerFormSunmit = ({ name, number }) => {
+  addContact = ({ name, number }) => {
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
+  };
+
+  // findContact = name => {
   //   const { contacts } = this.state;
-
-  //   this.setState
-  //   const nameToRegistr = name.toLowerCase();
-  //   this.addNewContact(nameToRegistr, number);
+  //   return contacts.find(item => item.name.toLowerCase() === name);
   // };
 
+  onFilterChange = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
   render() {
+    const { contacts, filter } = this.state;
     return (
       <MainBox>
         <Title title="Phonebook" />
-        <FormEl onSubmit={this.addNewContact} />
-        <Filter title="Find contacts by name" value={this.setState.filter} />
-        <ContactList
-          title="Contacts"
-          // contacts={this.setState.contacts}
+        <FormEl onSubmit={this.handlerFormSubmit} />
+        <Filter
+          title="Find contacts by name"
+          filter={filter}
+          onChange={this.onFilterChange}
         />
+        <ContactList title="Contacts" contacts={contacts} />
       </MainBox>
     );
   }

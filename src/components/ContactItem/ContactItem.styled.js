@@ -1,6 +1,6 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
-// export const Item = styled.p`
-//   font-size: large;
-//   font-weight: 500;
-// `;
+export const Item = styled.li`
+  font-size: large;
+  font-weight: 500;
+`;

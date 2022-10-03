@@ -1,11 +1,11 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import {
   ContactSection,
   ContactTitle,
   ContactWrapper,
-  Item,
 } from './ContactList.styled';
+import ContactItem from 'components/ContactItem/ContactItem';
 
 export default function ContactList({ title, contacts }) {
   return (
@@ -13,7 +13,7 @@ export default function ContactList({ title, contacts }) {
       <ContactTitle>{title}</ContactTitle>
       <ContactWrapper>
         {contacts.map(({ id, name, number }) => (
-          <Item
+          <ContactItem
             key={id}
             id={id}
             name={name}
@@ -26,10 +26,7 @@ export default function ContactList({ title, contacts }) {
   );
 }
 
-// Statistics.propTypes = {
-//   good: PropTypes.number.isRequired,
-//   neutral: PropTypes.number.isRequired,
-//   bad: PropTypes.number.isRequired,
-//   total: PropTypes.number.isRequired,
-//   positivePercentage: PropTypes.number.isRequired,
-// };
+ContactList.propTypes = {
+  title: PropTypes.string.isRequired,
+  contacts: PropTypes.array.isRequired,
+};

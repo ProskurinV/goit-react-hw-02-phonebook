@@ -1,12 +1,21 @@
-import { Item } from './ContactItem.styled';
+import PropTypes from 'prop-types';
 
-export default function ContactItem({ name, number }) {
+import { Item, CloseBtn } from './ContactItem.styled';
+
+export default function ContactItem({ id, name, number, onDeleteContact }) {
   return (
     <Item>
       {name}:{number}
-      {/* <button type="button" onClick={() => onDeleteContact(id)}>
+      <CloseBtn type="button" onClick={() => onDeleteContact(id)}>
         delete
-      </button> */}
+      </CloseBtn>
     </Item>
   );
 }
+
+ContactItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
+};

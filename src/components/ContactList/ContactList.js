@@ -7,7 +7,7 @@ import {
 } from './ContactList.styled';
 import Item from 'components/ContactItem/ContactItem';
 
-export default function ContactList({ title, contacts }) {
+export default function ContactList({ title, contacts, onDeleteContact }) {
   return (
     <ContactSection>
       <ContactTitle>{title}</ContactTitle>
@@ -18,7 +18,7 @@ export default function ContactList({ title, contacts }) {
             id={id}
             name={name}
             number={number}
-            // onDeleteContact={onDeleteContact}
+            onDeleteContact={onDeleteContact}
           />
         ))}
       </ContactWrapper>
@@ -29,4 +29,5 @@ export default function ContactList({ title, contacts }) {
 ContactList.propTypes = {
   title: PropTypes.string.isRequired,
   contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import FormEl from 'components/Form/Form';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter';
+import Notiflix from 'notiflix';
 
 import Title from 'components/Title/Title';
 
@@ -22,6 +23,10 @@ export default class App extends Component {
 
   handlerFormSubmit = ({ name, number }) => {
     const nameToRegistr = name.toLowerCase();
+    if (this.findDuplicateName(nameToRegistr)) {
+      Notiflix.Notify.info(`${name} is already in contacts`);
+      return;
+    }
     this.addContact(nameToRegistr, number);
   };
 
@@ -49,31 +54,45 @@ export default class App extends Component {
     );
   };
 
-  // findContact = name => {
-  //   const { contacts } = this.state;
-  //   return contacts.find(item => item.name.toLowerCase() === name);
-  // };
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
   onFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
   };
 
+  findDuplicateName = name => {
+    const { contacts } = this.state;
+    return contacts.find(item => item.name.toLowerCase() === name);
+  };
+
   render() {
     const { contacts, filter } = this.state;
+
+    const visibleContacts = this.getVisibleContacts();
+
     return (
       <MainBox>
         <Title title="Phonebook" />
         <FormEl onSubmit={this.handlerFormSubmit} />
         <Filter
           title="Find contacts by name"
-          filter={filter}
+          // filter={filter}
+          value={filter}
           onChange={this.onFilterChange}
         />
-        <ContactList
-          title="Contacts"
-          contacts={contacts}
-          onDeleteContact={this.deleteContact}
-        />
+        {contacts.length > 0 && (
+          <ContactList
+            title="Contacts"
+            contacts={visibleContacts}
+            onDeleteContact={this.deleteContact}
+          />
+        )}
       </MainBox>
     );
   }

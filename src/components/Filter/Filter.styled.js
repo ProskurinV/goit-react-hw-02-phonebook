@@ -5,6 +5,7 @@ export const FindWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+  padding-bottom: 10px;
 `;
 
 export const FindTitle = styled.h3`

@@ -68,6 +68,6 @@ export default function FormEl({ onSubmit }) {
   );
 }
 
-FormEl.propTyper = {
+FormEl.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
